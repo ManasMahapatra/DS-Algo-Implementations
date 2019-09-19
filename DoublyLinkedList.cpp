@@ -142,17 +142,3 @@ class DoublyLinkedList {
         head = traverseNode;
     }
 };
-int main() {
-    DoublyLinkedList list1;
-    list1.insertNode(1);
-    list1.insertNode(2);
-    list1.insertNode(3);
-    list1.insertNode(4);
-    list1.insertNode(5);
-    list1.insertNode(6);
-    list1.reverseList();
-    list1.traverseList();
-    list1.traverseListBack();
-
-    return 0;
-}
