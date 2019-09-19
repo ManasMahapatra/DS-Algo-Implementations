@@ -123,6 +123,24 @@ class DoublyLinkedList {
         }
         cout<<"\n";
     }
+    //---------------------------------------------------
+    //REVERSAL
+    //---------------------------------------------------
+    void reverseList() {
+        int count = 0;
+        node* traverseNode = head;
+        tail = traverseNode;
+        node* temporaryNode = traverseNode->next;
+        while (temporaryNode != NULL) {
+            traverseNode->next = traverseNode->prev;
+            traverseNode->prev = temporaryNode;
+            traverseNode = temporaryNode;
+            temporaryNode = temporaryNode->next;
+        }
+        traverseNode->next = traverseNode->prev;
+        traverseNode->prev = temporaryNode;
+        head = traverseNode;
+    }
 };
 int main() {
     DoublyLinkedList list1;
@@ -132,14 +150,7 @@ int main() {
     list1.insertNode(4);
     list1.insertNode(5);
     list1.insertNode(6);
-    list1.traverseList();
-    list1.traverseListBack();
-    list1.insertNodeAtStart(23);
-    list1.traverseList();
-    list1.insertNodeAtPosition(50,3);
-    list1.traverseList();
-    list1.traverseListBack();
-    list1.deleteNodeOfValue(50);
+    list1.reverseList();
     list1.traverseList();
     list1.traverseListBack();
 
