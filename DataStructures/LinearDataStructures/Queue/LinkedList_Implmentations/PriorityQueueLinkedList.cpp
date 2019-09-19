@@ -1,3 +1,6 @@
+//Priority Queue with sorted insertion takes O(n) for one element;
+//For completion of n such jobs, it will be O(n^2), which is not efficient at all.
+//However, if we presume the total number of Jobs, say 25, we can use 2D arrays to build up the priority queue with O(n^3/2)
 #include<stdio.h>
 #include<iostream>
 using namespace std;
