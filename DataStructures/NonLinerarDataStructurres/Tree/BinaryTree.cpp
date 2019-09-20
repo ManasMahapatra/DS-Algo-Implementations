@@ -154,17 +154,3 @@ class BinaryTree {
         }
     }
 };
-int main() {
-    BinaryTree tree1;
-    tree1.insertElement(2);
-    tree1.insertElement(1);
-    tree1.insertElement(3);
-    tree1.insertElement(7);
-    tree1.insertElement(4);
-    tree1.insertElement(31);
-    tree1.insertElement(5);
-    tree1.inOrderTraversal();
-    tree1.deleteChildrenOfNode(23);
-    tree1.inOrderTraversal();
-
-}
