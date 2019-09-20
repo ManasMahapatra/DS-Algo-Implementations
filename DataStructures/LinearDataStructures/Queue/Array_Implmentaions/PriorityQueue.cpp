@@ -1,4 +1,4 @@
-//This priority queue implementatio is in a way more efficient than Linked List implementations, as the for N sequential operations
+//This priority queue implementatio is in a way more efficient than linked List implementations, as the for N sequential operations
 //complexity will be O(n^3/2).
 //However there are major drawbacks:
 //(1) Fixed size of array
