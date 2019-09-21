@@ -99,24 +99,32 @@ class BinaryTree {
     //we travel each level from left to right. Just like a file directory.
     void levelOrderTraversal(node* leaf) {
         node* temporaryNode = NULL;
+        //If its the root element there's no need to store. Just print the data inside it.
         if (leaf == root) {
             cout<<leaf->data<<"\t";
+            //If there is a left node, enqueue it
             if (leaf->left != NULL) {
                 bfsQueue.push(leaf->left);
             }
+            //If there is a right node, enqueue it
             if (leaf->right != NULL) {
                 bfsQueue.push(leaf->right);
             }
         } 
         while(!bfsQueue.empty()) {
+            //Get reference to the firts item in queue
             temporaryNode = bfsQueue.front();
+            //Print the data inside it
             cout<<temporaryNode->data<<"\t";
+            //If there is a left node, enqueue it
             if (temporaryNode->left != NULL) {
                 bfsQueue.push(temporaryNode->left);
             }
+            //If there is a right node, enqueue it
             if (temporaryNode->right != NULL) {
                 bfsQueue.push(temporaryNode->right);
             }
+            //Pp the front element
             bfsQueue.pop();
         }
     }
