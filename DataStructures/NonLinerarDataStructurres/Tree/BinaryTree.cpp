@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<iostream>
+#include <queue>
 using namespace std;
 struct node {
     //This will point to theleft child of the current node
@@ -13,6 +14,7 @@ class BinaryTree {
     private:
     //This pointer will always keep track of the root node
     node *root;
+    queue <node*> bfsQueue;
     //This method will search for the proper position for the Value, so as the tree is sorted and append it
     //using recurssion. This is also called function overloading, using the same function name with different argument types.
     //---------------------------------------------------
@@ -22,7 +24,7 @@ class BinaryTree {
         //Two Possibilities:
         //(1) The current data is less than the value in leaf node:
         //If so, check if the left position is vacant, or pass the temporary node, and the left of the leaf node for another iteration
-        if ((temporaryNode->data) <= (leaf->data)){
+        if ((temporaryNode->data) < (leaf->data)){
             if (leaf->left != NULL) {
                 insertElement(temporaryNode,leaf->left);
             } else {
@@ -41,6 +43,8 @@ class BinaryTree {
                 temporaryNode = NULL;
             }
         }
+        //Inserting an element of same value doesn't make any sense for a binary tree.
+        //Still if you want to add you can add it to your left element, however it would take more computational steps to traverse the tree.
     }
     void deleteChildrenOfNode(int value,node* leaf){
         //Three possibilities: Value in the provided node can be less than, equal to or greater than the 
@@ -61,6 +65,8 @@ class BinaryTree {
     //---------------------------------------------------
     //TRAVERSAL
     //---------------------------------------------------
+    //Depth First Search
+    //3 Tupes: Inorder, Preorder and Postorder
     void inOrderTraversal(node* leaf) {
         if (leaf != NULL) {
             //Traversals are multi-level recursions. For better understanding consider a two tier tree and map the 
@@ -86,6 +92,32 @@ class BinaryTree {
             postOrderTraversal(leaf->left);
             postOrderTraversal(leaf->right);
             cout<<leaf->data<<"\t";
+        }
+    }
+    //Breadth First Search
+    //This is different kind of traversal. This is also called level order traversals for tree. In this way
+    //we travel each level from left to right. Just like a file directory.
+    void levelOrderTraversal(node* leaf) {
+        node* temporaryNode = NULL;
+        if (leaf == root) {
+            cout<<leaf->data<<"\t";
+            if (leaf->left != NULL) {
+                bfsQueue.push(leaf->left);
+            }
+            if (leaf->right != NULL) {
+                bfsQueue.push(leaf->right);
+            }
+        } 
+        while(!bfsQueue.empty()) {
+            temporaryNode = bfsQueue.front();
+            cout<<temporaryNode->data<<"\t";
+            if (temporaryNode->left != NULL) {
+                bfsQueue.push(temporaryNode->left);
+            }
+            if (temporaryNode->right != NULL) {
+                bfsQueue.push(temporaryNode->right);
+            }
+            bfsQueue.pop();
         }
     }
     public:
@@ -150,6 +182,15 @@ class BinaryTree {
             return;
         } else {
             postOrderTraversal(root);
+            cout<<"\n";
+        }
+    }
+    void levelOrderTraversal() {
+        if (root == NULL) {
+            cout<<"[-] Tree is empty.\n";
+            return;
+        } else {
+            levelOrderTraversal(root);
             cout<<"\n";
         }
     }
