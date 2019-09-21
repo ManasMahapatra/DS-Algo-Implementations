@@ -41,7 +41,16 @@ class Construction {
             //--------InOrder----------
             //{ LEFT SUBTREE } = from 0th index to (rootLocationInOrder - 1)
             //{ RIGHT SUBTREE } = from (rootLocationInOrder + 1) to last element
-
+            int leftSubInOrder[rootLocationInOrder];
+            for (int i = 0;i<rootLocationInOrder;i++){
+                leftSubInOrder[i] = inOrder[i];
+            }
+            int rightSubInOrder[arrayLengthInOrder - rootLocationInOrder + 1];
+            for (int i = 0;i < (arrayLengthInOrder - rootLocationInOrder + 1);i++) {
+                rightSubInOrder[i] = inOrder[rootLocationInOrder + i + 1];
+            }
+            //---------PreOrder--------
+            //{ LEFT SUBTREE } = from 1st index till length of (rootLocationIndex)
             //If there's no root element in Inorder they aren't same
             if (rootLocationInOrder == -1) { return false; }
             //bool resLeft = compareInPrePost();
@@ -65,4 +74,4 @@ class Construction {
 
 
     }
-}
+};
