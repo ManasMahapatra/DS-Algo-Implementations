@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<iostream>
 #include <queue>
+#include <stack>
+#include "../../LinearDataStructures/LinkedList/LinkedList.cpp"
 using namespace std;
 struct node {
     //This will point to theleft child of the current node
@@ -14,7 +16,10 @@ class BinaryTree {
     private:
     //This pointer will always keep track of the root node
     node *root;
-    queue <node*> bfsQueue;
+    queue <node*> bstQueue;
+    stack <node*> bstStack;
+    LinkedList coveredNodes;
+    LinkedList unCoveredNodes;
     //This method will search for the proper position for the Value, so as the tree is sorted and append it
     //using recurssion. This is also called function overloading, using the same function name with different argument types.
     //---------------------------------------------------
@@ -104,29 +109,60 @@ class BinaryTree {
             cout<<leaf->data<<"\t";
             //If there is a left node, enqueue it
             if (leaf->left != NULL) {
-                bfsQueue.push(leaf->left);
+                bstQueue.push(leaf->left);
             }
             //If there is a right node, enqueue it
             if (leaf->right != NULL) {
-                bfsQueue.push(leaf->right);
+                bstQueue.push(leaf->right);
             }
         } 
-        while(!bfsQueue.empty()) {
+        while(!bstQueue.empty()) {
             //Get reference to the firts item in queue
-            temporaryNode = bfsQueue.front();
+            temporaryNode = bstQueue.front();
             //Print the data inside it
             cout<<temporaryNode->data<<"\t";
             //If there is a left node, enqueue it
             if (temporaryNode->left != NULL) {
-                bfsQueue.push(temporaryNode->left);
+                bstQueue.push(temporaryNode->left);
             }
             //If there is a right node, enqueue it
             if (temporaryNode->right != NULL) {
-                bfsQueue.push(temporaryNode->right);
+                bstQueue.push(temporaryNode->right);
             }
             //Pp the front element
-            bfsQueue.pop();
+            bstQueue.pop();
         }
+    }
+    void checkSumCoverUncover(node* leaf) {
+        int count = 0;
+        node* topNode = NULL;
+        if (leaf == root) {
+            bstQueue.push(leaf);
+        }
+        while (!bstQueue.empty()) {
+            bstStack.push(bstQueue.front());
+            bstQueue.pop();
+        }
+        while (!bstStack.empty()) {
+            topNode = bstStack.top();
+            //Enqueue the left node of the element
+            if (topNode->left != NULL) {
+                bstQueue.push(topNode->left);
+            }
+            if (topNode->right != NULL) {
+                bstQueue.push(topNode->right);
+            }
+            if (count == 0) {
+                count++;
+                unCoveredNodes.insertNode(topNode->data);
+                bstStack.pop();
+            } 
+            bstStack.pop();
+            if (bstStack.empty()){
+                //
+            }
+        }
+        
     }
     public:
     BinaryTree() {
@@ -200,6 +236,17 @@ class BinaryTree {
         } else {
             levelOrderTraversal(root);
             cout<<"\n";
+        }
+    }
+    void checkSumCoverUncover() {
+        if (root == NULL) {
+            cout << "[-] Tree is empty.\n";
+            return;
+        } else if (root->left == NULL && root->right == NULL) {
+            cout << "[+] sumOf(Covered) = sumOf(Uncovered)";
+            return;
+        } else {
+            checkSumCoverUncover(root);
         }
     }
 };
