@@ -23,19 +23,23 @@ class BinaryTree {
             btNode.push(leaf);
         }
         while (!btNode.empty()) {
+            //Get the first element of array and store it
             temporaryNode = btNode.front();
+            //If its left is empty then assign it to the new node, else enqueue it
             if (temporaryNode->left == NULL) {
                 temporaryNode->left = newNode;
                 return;
             } else {
                 btNode.push(temporaryNode->left);
             }
+            //If its right is empty assign it to the new node, else enqueue it
             if (temporaryNode->right == NULL) {
                 temporaryNode->right = newNode;
                 return;
             } else {
                 btNode.push(temporaryNode->right);
             }
+            //Pop the front element
             btNode.pop();
         }
     }
