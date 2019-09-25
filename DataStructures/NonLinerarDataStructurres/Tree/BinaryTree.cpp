@@ -14,7 +14,8 @@ class BinaryTree {
     private:
     queue <node*> btNode;
     queue <node*> bstQueue;
-    
+    //initiate the root pointer
+    node* root = NULL;
     //This method will have the logic to push elements in to the tree in a level order.
     void insertNode(node* leaf, node* newNode) {
         node* temporaryNode = NULL;
@@ -80,8 +81,7 @@ class BinaryTree {
     //A regukar binary tree, unlike binary search tree doesn't need to traverse in depth mode to insert values.
     //Hence the target is to fill the element level wise, so as to form a complete binary tree.
     public:
-    //initiate the root pointer
-    node* root;
+    
     void insertNode(int value) {
         //Create a temporary node and initiate it.
         node* temporaryNode = new node;
