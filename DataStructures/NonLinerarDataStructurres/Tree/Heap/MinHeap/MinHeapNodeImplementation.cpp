@@ -106,6 +106,23 @@ class MinHeapNode {
             newTail = newTail->parent;
         }
     }
+    //This is a utility method to return the node with lesser value from left and right child
+    node* nodeMinimum(node* left, node* right) {
+        return (left->data < right->data) ? left : right ;
+    }
+    void extractMinimum(node* leaf) {
+        int store;
+        node* traverseNode = NULL;
+        if (leaf->left != NULL && leaf->right != NULL) {
+            traverseNode = nodeMinimum(leaf->left,leaf->right);
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMinimum(traverseNode);
+        }
+    }
     public:
     MinHeapNode() {
         //Nullify the root and tail eleement at initiation
@@ -114,6 +131,13 @@ class MinHeapNode {
     }
     int getMinimum() {
         return root->data;
+    }
+    void extractMinimum() {
+        if (root == NULL) {
+            return;
+        } else {
+            extractMinimum(root);
+        }
     }
     void insertElement(int value) {
         //Create a new node and a temporary node pointer to point to it.
@@ -155,6 +179,8 @@ int main() {
     heap.insertElement(4);
     heap.insertElement(2);
     heap.insertElement(1);
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
     heap.levelOrderTraversal();
     return 0;
 }
