@@ -15,6 +15,7 @@ struct node {
 };
 class MinHeapNode {
     private:
+    int leftRight = 0;
     //Initiate the root element
     node* root;
     //A pointer to point to the new tail of the tree
@@ -107,20 +108,51 @@ class MinHeapNode {
         }
     }
     //This is a utility method to return the node with lesser value from left and right child
-    node* nodeMinimum(node* left, node* right) {
-        return (left->data < right->data) ? left : right ;
+    int nodeMinimum(node* left, node* right) {
+        return (left->data < right->data) ? 1 : 2 ;
     }
     void extractMinimum(node* leaf) {
         int store;
         node* traverseNode = NULL;
         if (leaf->left != NULL && leaf->right != NULL) {
-            traverseNode = nodeMinimum(leaf->left,leaf->right);
+            leftRight = nodeMinimum(leaf->left, leaf->right);
+            if (leftRight == 1) {
+                traverseNode = leaf->left;
+            } else if (leftRight == 2) {
+                traverseNode = leaf->right;
+            }
             //Swap values with the minimum integer
             store = leaf->data;
             leaf->data = traverseNode->data;
             traverseNode->data = store;
             //Recurssion
             extractMinimum(traverseNode);
+        } else if (leaf->left != NULL) {
+            leftRight = 1;
+            traverseNode = leaf->left;
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMinimum(traverseNode);
+        } else if (leaf->right != NULL) {
+            leftRight = 2;
+            traverseNode = leaf->right;
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMinimum(traverseNode);
+        } else {
+            if (leaf == root) {
+                root = NULL;
+            } else if (leftRight == 1) {
+                leaf->parent->left = NULL;
+            } else if (leftRight == 2) {
+                leaf->parent->right = NULL;
+            }
         }
     }
     public:
@@ -179,6 +211,19 @@ int main() {
     heap.insertElement(4);
     heap.insertElement(2);
     heap.insertElement(1);
+    heap.insertElement(8);
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
+    heap.levelOrderTraversal();
+    heap.extractMinimum();
     heap.levelOrderTraversal();
     heap.extractMinimum();
     heap.levelOrderTraversal();
