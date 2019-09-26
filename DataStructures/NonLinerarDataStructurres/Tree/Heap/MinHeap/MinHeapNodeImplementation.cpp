@@ -15,6 +15,7 @@ struct node {
 };
 class MinHeapNode {
     private:
+    //
     int leftRight = 0;
     //Initiate the root element
     node* root;
@@ -112,8 +113,13 @@ class MinHeapNode {
         return (left->data < right->data) ? 1 : 2 ;
     }
     void extractMinimum(node* leaf) {
+        //This will act as a store while swapping values
         int store;
         node* traverseNode = NULL;
+        //Three possible swapping cases:
+        //(1) There will be both left and right children
+        //(2) There will either be right or be left
+        //(3) Or none !
         if (leaf->left != NULL && leaf->right != NULL) {
             leftRight = nodeMinimum(leaf->left, leaf->right);
             if (leftRight == 1) {
