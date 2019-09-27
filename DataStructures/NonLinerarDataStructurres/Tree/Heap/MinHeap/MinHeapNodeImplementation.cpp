@@ -15,7 +15,8 @@ struct node {
 };
 class MinHeapNode {
     private:
-    //
+    //This variable will store which child is being replaced while extraction or deletion or modification of  node.
+    //{ Left child } corresponds to 1 while { Right child } corresponds to 2.
     int leftRight = 0;
     //Initiate the root element
     node* root;
