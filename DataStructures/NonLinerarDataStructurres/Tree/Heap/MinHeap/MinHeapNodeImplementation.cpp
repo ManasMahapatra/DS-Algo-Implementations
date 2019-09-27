@@ -210,29 +210,3 @@ class MinHeapNode {
         }
     }
 };
-int main() {
-    MinHeapNode heap;
-    heap.insertElement(3);
-    heap.insertElement(5);
-    heap.insertElement(6);
-    heap.insertElement(4);
-    heap.insertElement(2);
-    heap.insertElement(1);
-    heap.insertElement(8);
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    heap.extractMinimum();
-    heap.levelOrderTraversal();
-    return 0;
-}
