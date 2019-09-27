@@ -113,6 +113,55 @@ class MaxHeapNode {
     int nodeMaximum(node* left, node* right) {
         return (left->data > right->data) ? 1 : 2 ;
     }
+    void extractMaximum(node* leaf) {
+        //This will act as a store while swapping values
+        int store;
+        node* traverseNode = NULL;
+        //Three possible swapping cases:
+        //(1) There will be both left and right children
+        //(2) There will either be right or be left
+        //(3) Or none !
+        if (leaf->left != NULL && leaf->right != NULL) {
+            leftRight = nodeMaximum(leaf->left, leaf->right);
+            if (leftRight == 1) {
+                traverseNode = leaf->left;
+            } else if (leftRight == 2) {
+                traverseNode = leaf->right;
+            }
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMaximum(traverseNode);
+        } else if (leaf->left != NULL) {
+            leftRight = 1;
+            traverseNode = leaf->left;
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMaximum(traverseNode);
+        } else if (leaf->right != NULL) {
+            leftRight = 2;
+            traverseNode = leaf->right;
+            //Swap values with the minimum integer
+            store = leaf->data;
+            leaf->data = traverseNode->data;
+            traverseNode->data = store;
+            //Recurssion
+            extractMaximum(traverseNode);
+        } else {
+            if (leaf == root) {
+                root = NULL;
+            } else if (leftRight == 1) {
+                leaf->parent->left = NULL;
+            } else if (leftRight == 2) {
+                leaf->parent->right = NULL;
+            }
+        }
+    }
     public:
     MaxHeapNode() {
         //Nullify the root and tail eleement at initiation
@@ -123,7 +172,11 @@ class MaxHeapNode {
         return root->data;
     }
     void extractMaximum() {
-        
+        if (root == NULL) {
+            return;
+        } else {
+            extractMaximum(root);
+        }
     }
     void insertElement(int value) {
         //Create a new node and a temporary node pointer to point to it.
@@ -157,11 +210,3 @@ class MaxHeapNode {
         }
     }
 };
-int main() {
-    MaxHeapNode heap;
-    heap.insertElement(2);
-    heap.insertElement(1);
-    heap.insertElement(3);
-    heap.levelOrderTraversal();
-    return 0;
-}
