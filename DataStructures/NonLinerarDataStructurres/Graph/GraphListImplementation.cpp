@@ -19,10 +19,32 @@ class GraphList {
         }
     }
     void traverseGraph() {
-        
+        for (int i = 0;i < totalNodes; i++) {
+            cout<<"["<<i<<"]";
+            for (auto j = container[i].cbegin();j != container[i].cend(); j ++) {
+                //cbegin() and cend() returns an iterator which points to linked nodes. These iterators can't be used to modify 
+                //the element.
+                cout <<" -----> "<<*j;
+            }
+            cout<<"\n";
+        }
     }
 };
 int main() {
     GraphList graph;
     graph.setPath(0,4);
+    graph.setPath(2,1);
+    graph.setPath(3,3);
+    graph.setPath(4,2);
+    graph.setPath(3,2);
+    graph.setPath(1,0);
+    graph.setPath(0,3);
+    graph.setPath(4,0);
+    graph.setPath(3,1);
+    graph.setPath(2,3);
+    graph.setPath(0,2);
+    graph.setPath(0,0);
+    graph.setPath(0,1);
+    graph.setPath(1,3);
+    graph.traverseGraph();
 }
