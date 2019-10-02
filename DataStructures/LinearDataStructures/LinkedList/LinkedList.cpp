@@ -218,8 +218,3 @@ class LinkedList {
         }
     }
 };
-int main() {
-    LinkedList list1;
-    //Use methods on { list1 } object.
-    return 0;
-}
