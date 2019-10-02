@@ -15,8 +15,8 @@ class DoublyLinkedList {
     private:
     //These two pointers are necessary in order to keep a track of head and tail of a LinkedList object.
     //So as to initially avoid the garbage value, initiate it to NULL, in the constructor.
-    node *head,*tail;
     public:
+    node *head,*tail;
     DoublyLinkedList() {
         head = NULL;
         tail = NULL;
