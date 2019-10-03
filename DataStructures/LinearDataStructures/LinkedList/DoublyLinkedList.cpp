@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <stdio.h>
+#include <iostream>
 using namespace std;
 //This Library is used mainly during programming contest to avoid importing libraries.
 
