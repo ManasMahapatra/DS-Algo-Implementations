@@ -15,26 +15,37 @@ class SortedDoublyLinkedList : public DoublyLinkedList {
         while (traverseNode != NULL) {
             currentNode = traverseNode;
             //------------------
-            //Case - 1: 
+            //Case: If the element is smaller then the head itself then simply insert it before at 
+            //the head
+            //------------------
             if (traverseNode->data < head->data) {
+                //Shift the traversing node to the next element before reconfiguration
                 traverseNode = traverseNode->next;
+                //Reconfigure the whole element properly
                 currentNode->prev->next = currentNode->next;
                 currentNode->next->prev = currentNode->prev;
                 currentNode->next = head;
                 currentNode->prev = NULL;
                 head->prev = currentNode;
+                //Set the head at the new element
                 head = currentNode;
+                //Continue to the next loop
+                //Dont break the whole loop, as it wont operate for next elements.
                 continue;    
             }
             //set the inner traverse node to the previous of current node
             innerTraverseNode = traverseNode->prev;
             while (innerTraverseNode != NULL) {
                 if (innerTraverseNode->data <= traverseNode->data && traverseNode->data <= innerTraverseNode->next->data && innerTraverseNode->next != traverseNode) {
+                    //Set the { next } of previous element to the next element
                     traverseNode->prev->next = traverseNode->next;
                     if (traverseNode->next != NULL) {
+                        //If there exists a next element configure its { prev }
                         traverseNode->next->prev = traverseNode->prev;
+                        //Then shift it
                         traverseNode = traverseNode->next;
                     } else {
+                        //Else set it to NULL
                         traverseNode = NULL;
                     }
                     //Reconfigure nodes
@@ -52,36 +63,12 @@ class SortedDoublyLinkedList : public DoublyLinkedList {
                 traverseNode = traverseNode->next;
             } 
         }
+        //Traverse to the last element so as to set the tail properly for backward traversal.
         traverseNode = head;
         while(traverseNode->next != NULL){
             traverseNode = traverseNode->next;
         }
+        //Set the tail to the traversed node.
         tail = traverseNode;
     }
 };
-int main() {
-    SortedDoublyLinkedList list;
-    list.insertNode(4);
-    list.insertNode(21);
-    list.insertNode(6);
-    list.insertNode(-2);
-    list.insertNode(2);
-    list.insertNode(2343);
-    list.insertNode(2389);
-    list.insertNode(13);
-    list.insertNode(23);
-    list.insertNode(232);
-    list.insertNode(23);
-    list.insertNode(123);
-    list.insertNode(3);
-    list.insertNode(5454);
-    list.insertNode(-98);
-    list.insertNode(93);
-    list.insertNode(983);
-    list.insertNode(-123);
-    list.insertNode(23098);
-    list.traverseList();
-    list.insertionSort();
-    list.traverseListBack();
-    return 0;
-}
