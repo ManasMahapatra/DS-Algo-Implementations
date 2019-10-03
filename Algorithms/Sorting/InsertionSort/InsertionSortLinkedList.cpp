@@ -40,8 +40,8 @@ class SortedDoublyLinkedList : public DoublyLinkedList {
                     //Reconfigure nodes
                     currentNode->prev = innerTraverseNode;
                     currentNode->next = innerTraverseNode->next;
-                    innerTraverseNode->next = currentNode;
                     innerTraverseNode->next->prev = currentNode;
+                    innerTraverseNode->next = currentNode;
                     //set currentNode to NULL
                     currentNode = NULL;
                     break;
@@ -64,20 +64,22 @@ int main() {
     list.insertNode(4);
     list.insertNode(21);
     list.insertNode(6);
+    list.insertNode(-2);
+    list.insertNode(2);
+    list.insertNode(2343);
+    list.insertNode(2389);
+    list.insertNode(13);
     list.insertNode(23);
-    list.insertNode(98);
-    list.insertNode(91);
-    list.insertNode(54);
-    list.insertNode(5);
-    list.insertNode(5);
-    list.insertNode(8979);
-    list.insertNode(5766);
-    list.insertNode(5765);
-    list.insertNode(54);
-    list.insertNode(5764);
+    list.insertNode(232);
+    list.insertNode(23);
+    list.insertNode(123);
     list.insertNode(3);
-    list.insertNode(53);
-    list.insertNode(523);
+    list.insertNode(5454);
+    list.insertNode(-98);
+    list.insertNode(93);
+    list.insertNode(983);
+    list.insertNode(-123);
+    list.insertNode(23098);
     list.traverseList();
     list.insertionSort();
     list.traverseListBack();
