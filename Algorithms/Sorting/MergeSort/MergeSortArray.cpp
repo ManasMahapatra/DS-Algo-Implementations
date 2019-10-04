@@ -53,13 +53,14 @@ void mergeTwoSortedArrays(int sortedArrayA[], int sortedArrayB[], int lengthA, i
     cout<<"\n";
 }
 //----------------------------
-//MERGE & SORT SUBARRAYS 
+//MERGE SUBARRAYS 
 //----------------------------
+
 void mergeSubarrays(int originalArray[], int left, int middle, int right) {
     //First separate the elements of original array into two different queues
     //From left end to mid
     queue <int> leftMid;
-    for (int i = 0; i <= middle; i++) {
+    for (int i = left; i <= middle; i++) {
         leftMid.push(originalArray[i]);
     }
     //From mid to right end
@@ -67,7 +68,7 @@ void mergeSubarrays(int originalArray[], int left, int middle, int right) {
     for (int i = middle + 1; i <= right; i++) {
         midRight.push(originalArray[i]);
     }
-    int indexCount = 0;
+    int indexCount = left;
     while (!leftMid.empty() || !midRight.empty()) {
         if (!leftMid.empty() && !midRight.empty()) {
             if (leftMid.front() < midRight.front()) {
@@ -92,10 +93,26 @@ void mergeSubarrays(int originalArray[], int left, int middle, int right) {
         }
     }
 }
+//----------------------------
+//MERGE SORT 
+//----------------------------
+void mergeSortArrays(int originalArray[], int left, int right) {
+    //Base case
+    //Only proceed if the legt index is lesser than the right end
+    if (left < right) {
+        int middle = (left + right) / 2;
+        //Merge sort the left half
+        mergeSortArrays(originalArray, left, middle);
+        //Merge sort the right half
+        mergeSortArrays(originalArray, middle + 1 ,right);
+        //merge the subarrays
+        mergeSubarrays(originalArray, left, middle, right);
+    }
+}
 int main() {
-    int arr[] = {1,3,4,5,6,7,8};
-    mergeSubarrays(arr,0,3,6);
-    for (int i = 0; i < 7; i++){
+    int arr[] = {32,5,30,3,323,91,-9,21,23};
+    mergeSortArrays(arr,0,8);
+    for (int i = 0; i < 9; i++){
         cout<<arr[i]<<' ';
     }
     return 0;
