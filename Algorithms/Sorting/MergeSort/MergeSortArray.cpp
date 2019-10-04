@@ -60,6 +60,8 @@ void mergeSubarrays(int originalArray[], int left, int middle, int right) {
     //First separate the elements of original array into two different queues
     //From left end to mid
     queue <int> leftMid;
+    //Store elements from the right to the middle.
+    //P.S. Left to middle is not 0 to mid, the left pointer wiill change
     for (int i = left; i <= middle; i++) {
         leftMid.push(originalArray[i]);
     }
@@ -68,8 +70,11 @@ void mergeSubarrays(int originalArray[], int left, int middle, int right) {
     for (int i = middle + 1; i <= right; i++) {
         midRight.push(originalArray[i]);
     }
+    //Start indexing from left, not from 0, as the left pointer will change, and setting it to zero will
+    //overwrite existing sorted elements
     int indexCount = left;
     while (!leftMid.empty() || !midRight.empty()) {
+        //If both queues qre non empty, check minimum, pop and increment the index
         if (!leftMid.empty() && !midRight.empty()) {
             if (leftMid.front() < midRight.front()) {
                 originalArray[indexCount] = leftMid.front();
@@ -81,6 +86,7 @@ void mergeSubarrays(int originalArray[], int left, int middle, int right) {
                 indexCount++;
             }
         }
+        //If not then copy the elements one by one.
         if (!leftMid.empty() && midRight.empty()) {
             originalArray[indexCount] = leftMid.front();
             leftMid.pop();
@@ -108,12 +114,4 @@ void mergeSortArrays(int originalArray[], int left, int right) {
         //merge the subarrays
         mergeSubarrays(originalArray, left, middle, right);
     }
-}
-int main() {
-    int arr[] = {32,5,30,3,323,91,-9,21,23};
-    mergeSortArrays(arr,0,8);
-    for (int i = 0; i < 9; i++){
-        cout<<arr[i]<<' ';
-    }
-    return 0;
 }
