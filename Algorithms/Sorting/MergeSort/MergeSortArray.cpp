@@ -4,9 +4,9 @@
 #include <queue>
 using namespace std;
 //This method is an utility method to merge two ascending sorted arrays
-//----------------------------
+//---------------------------
 //MERGE SORTED ARRAYS - QUEUE
-//----------------------------
+//---------------------------
 void mergeTwoSortedArrays(int sortedArrayA[], int sortedArrayB[], int lengthA, int lengthB) {
     //Make a queue for elements of array A
     queue <int> queueA;
